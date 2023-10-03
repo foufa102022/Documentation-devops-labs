@@ -1,0 +1,20 @@
+installation de ubuntu-server-template 22.04
+- les cartes reseaux virtuelles ne ont pas été prise en consideration alors pour resoudre ce probleme on doit 
+les ajouter manuellement  via edit Virtual Network Editor dedans on trouve les carte reseaux virtuelles : Bridged et NAT
+-on coche la case connect to host virtuel adapter to this Network 
+
+**************************************************************************************************
+pour conserver une mechine temoigne on doit executer le script situer dans le chemain  :
+\documentation\prepare-ubuntu-22.04-template.sh ces sont les  étapes à suivre :
+-connection ay server via ssh par la commande : ssh nom de utilisateur@adresse ip de serveur 
+Exemple:
+ssh foufa@192.168.233.128
+installer git dans le vm server :sudo apt update && install git 
+cloner le depot qui contient le script par : 
+git clone https://github.com/foufa102022/Documentation-devops-labs.git
+cd Documentation-devops-labs
+renommer le fichier 
+cat prepare-ubuntu-22.04-template.sh >> script.sh
+execution de script.sh par la commande :chmod +x scripts.sh
+redemarrer la machine par :sudo shutdown -h now
+
