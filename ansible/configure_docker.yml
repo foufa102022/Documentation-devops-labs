@@ -1,0 +1,31 @@
+---
+- name: Configure Docker
+  hosts: ubuntu_machines
+  become: true
+
+  tasks:
+    - name: Create directory for Docker service configuration
+      file:
+        path: /etc/systemd/system/docker.service.d
+        state: directory
+
+    - name: Create options.conf file
+      blockinfile:
+        path: /etc/systemd/system/docker.service.d/options.conf
+        block: |
+          [Service]
+          ExecStart=
+          ExecStart=/usr/bin/dockerd -H unix:// -H tcp://0.0.0.0:2375
+        create: yes
+      notify: Reload Docker
+
+  handlers:
+    - name: Reload Docker
+      systemd:
+        name: docker
+        state: reloaded
+
+    - name: Restart Docker
+      systemd:
+        name: docker
+        state: restarted
